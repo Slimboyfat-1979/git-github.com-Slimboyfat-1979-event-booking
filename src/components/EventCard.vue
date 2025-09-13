@@ -1,5 +1,5 @@
 <template>
-  <div class="border border-gray-200 bg-white rounded-md">
+  <RoundedCard>
     <h3 class="p-4 font-medium text-xl border-b border-gray-200">{{ title }}</h3>
     <p class="p-4 border-b border-gray-200">{{ when }}</p>
     <p class="p-4">{{ description }}</p>
@@ -8,11 +8,12 @@
         <pre>Register</pre>
       </RoundButton>
     </section>
-  </div>
+  </RoundedCard>
 </template>
 
 <script setup>
 import RoundButton from './RoundButton.vue';
+import RoundedCard from '@/components/RoundedCard.vue';
 defineProps({
   title: String,
   when: String,

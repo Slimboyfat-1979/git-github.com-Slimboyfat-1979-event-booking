@@ -1,7 +1,10 @@
 <template>
   <SectionCard>
   <div class="flex justify-between">
-    {{ title }}
+    <div class="flex space-x-2">
+        <div>{{ title }}</div>
+        <div>{{ status }}</div>
+    </div>
     <RoundButton variant="danger">
         Cancel
     </RoundButton>
@@ -12,6 +15,9 @@
 <script setup>
 defineProps({
     title: {
+        type: String
+    },
+    status: {
         type: String
     }
 });

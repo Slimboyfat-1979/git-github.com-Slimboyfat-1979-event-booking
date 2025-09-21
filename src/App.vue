@@ -20,7 +20,11 @@
     <h2 class="text-2xl font-medium">Your Bookings</h2>
     <section class="grid grid-cols-1 gap-8">
       <template v-if="!bookingsLoading">
-        <BookingItem v-for="booking in bookings" :title="booking.eventTitle"></BookingItem>
+        <BookingItem
+          v-for="booking in bookings"
+          :title="booking.eventTitle"
+          :status="booking.status"
+        ></BookingItem>
       </template>
       <template v-else>
         <LoadingBookingCard v-for="i in 4" :key="i"></LoadingBookingCard>
@@ -62,21 +66,41 @@ const fetchBookings = async () => {
 };
 
 const handleReginstration = async (event) => {
+ if(bookings.value.some((booking) => booking.eventId === event.id && booking.userId === 1)) {
+    alert('You are already registered for this event');
+    return;
+ }
+
   const newBooking = {
     id: Date.now().toString(),
     userId: 1,
     eventId: event.id,
     eventTitle: event.title,
+    status: 'pending',
   };
 
-  await fetch('http://localhost:3001/bookings', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      ...newBooking,
-      status: 'confirmed',
-    }),
-  });
+  bookings.value.push(newBooking);
+
+  try {
+      const response = await fetch('http://localhost:3001/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...newBooking,
+          status: 'confirmed',
+        }),
+      });
+
+      if(response.ok) {  
+        const index = bookings.value.findIndex(b => b.id === newBooking.id);
+        bookings.value[index] = await response.json();
+      }else{
+        throw new Error('Failed to confirm booking');
+      }
+  } catch (e) {
+    console.error(`Failed to register for event: `, e);
+    bookings.value = bookings.value.filter(b => b.id != newBooking.id)
+  }
 };
 
 onMounted(function () {

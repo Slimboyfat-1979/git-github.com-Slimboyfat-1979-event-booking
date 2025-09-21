@@ -30,12 +30,6 @@
     }
   ],
   "bookings": [
-    {
-      "id": "1758437609676",
-      "userId": 1,
-      "eventId": "4",
-      "eventTitle": "Rust Conference 2021",
-      "status": "confirmed"
-    }
+
   ]
 }

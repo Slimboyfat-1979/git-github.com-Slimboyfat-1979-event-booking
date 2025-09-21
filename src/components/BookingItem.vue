@@ -5,7 +5,7 @@
         <div>{{ title }}</div>
         <div>{{ status }}</div>
     </div>
-    <RoundButton variant="danger">
+    <RoundButton @click="$emit('cancelled')" variant="danger">
         Cancel
     </RoundButton>
   </div>
@@ -21,6 +21,9 @@ defineProps({
         type: String
     }
 });
+
+defineEmits(['cancelled'])
+
 
 import RoundButton from './RoundButton.vue';
 import SectionCard from './SectionCard.vue';

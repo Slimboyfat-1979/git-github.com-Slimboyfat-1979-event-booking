@@ -50,7 +50,7 @@ const bookingsLoading = ref(false);
 const fetchEvents = async () => {
   eventsLoading.value = true;
   try {
-    const response = await fetch('http://localhost:3001/events');
+    const response = await fetch('https://json-server.kia-kaha.workers.dev/events');
     events.value = await response.json();
   } finally {
     eventsLoading.value = false;

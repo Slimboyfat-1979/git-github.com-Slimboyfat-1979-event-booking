@@ -30,6 +30,12 @@
     }
   ],
   "bookings": [
-
+    {
+      "id": "1758534059324",
+      "userId": 1,
+      "eventId": "2",
+      "eventTitle": "Vue Conference 2023",
+      "status": "confirmed"
+    }
   ]
 }

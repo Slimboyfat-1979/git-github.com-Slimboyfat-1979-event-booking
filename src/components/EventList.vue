@@ -1,14 +1,21 @@
 <template>
   <section class="grid grid-cols-2 gap-8">
     <template v-if="!loading">
-      <EventCard
-        v-for="event in events"
-        :title="event.title"
-        :when="event.date"
-        :description="event.description"
-        :key="event.id"
-        @register="$emit('register', event)"
-      />
+      <template v-if="events.length">
+        <EventCard
+          v-for="event in events"
+          :title="event.title"
+          :when="event.date"
+          :description="event.description"
+          :key="event.id"
+          @register="$emit('register', event)"
+        />
+      </template>
+      <template v-else>
+        <div class="col-span-2 text-center text-gray-500">
+            No Events Yet
+        </div>
+      </template>
     </template>
     <template v-else>
       <LoadingEventCard v-for="i in 4" :key="i"></LoadingEventCard>
@@ -17,7 +24,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import EventCard from './EventCard.vue';
 import LoadingEventCard from './LoadingEventCard.vue';
 
@@ -36,5 +43,5 @@ const fetchEvents = async () => {
   }
 };
 
-onMounted(() => fetchEvents())
+onMounted(() => fetchEvents());
 </script>

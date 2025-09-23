@@ -31,6 +31,16 @@ import LoadingBookingCard from './components/LoadingBookingCard.vue';
 const bookings = ref([]);
 const bookingsLoading = ref(false);
 
+const fetchEvents = async () => {
+  eventsLoading.value = true;
+  try {
+    const response = await fetch('https://json-server.kia-kaha.workers.dev/events');
+    events.value = await response.json();
+  } finally {
+    eventsLoading.value = false;
+  }
+};
+
 const fetchBookings = async () => {
   try {
     bookingsLoading.value = true;
@@ -105,3 +115,6 @@ onMounted(function () {
   fetchBookings();
 });
 </script>
+
+
+//This is a part of a new file

@@ -134,3 +134,6 @@ onMounted(function () {
   fetchBookings();
 });
 </script>
+
+
+//This is a part of a new file

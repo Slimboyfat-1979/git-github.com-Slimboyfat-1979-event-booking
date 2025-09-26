@@ -5,7 +5,7 @@
     <EventList @register="handleReginstration($event)"></EventList>
     <h2 class="text-2xl font-medium">Your Bookings</h2>
     <section class="grid grid-cols-1 gap-8">
-      <template v-if="!bookingsLoading">
+      <template v-if="!loading">
         <BookingItem
           v-for="booking in bookings"
           :key="booking.id"
@@ -22,34 +22,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import EventList from './components/EventList.vue';
 import BookingItem from './components/BookingItem.vue';
 import LoadingBookingCard from './components/LoadingBookingCard.vue';
+import useBookings from '@/composables/useBookings';
+
+const {bookings, loading, fetchBookings} = useBookings()
 
 
-const bookings = ref([]);
-const bookingsLoading = ref(false);
-
-const fetchEvents = async () => {
-  eventsLoading.value = true;
-  try {
-    const response = await fetch('https://json-server.kia-kaha.workers.dev/events');
-    events.value = await response.json();
-  } finally {
-    eventsLoading.value = false;
-  }
-};
-
-const fetchBookings = async () => {
-  try {
-    bookingsLoading.value = true;
-    const response = await fetch('http://localhost:3001/bookings');
-    bookings.value = await response.json();
-  } finally {
-    bookingsLoading.value = false;
-  }
-};
 
 const findBookingbyId = (id) => {
   bookings.value.findIndex((b) => b.id === id);

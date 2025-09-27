@@ -1,14 +1,19 @@
-import {ref} from 'vue';
+import { ref } from 'vue';
 
 const bookings = ref([]);
 const loading = ref(false);
+const error = ref(null);
 
 const fetchBookings = async () => {
+  loading.value = true;
+  error.value = true;
   try {
-    loading.value = true;
     const response = await fetch('http://localhost:3001/bookings');
     bookings.value = await response.json();
-  } finally {
+  }catch(err){
+    error.value = err;
+  }
+  finally {
     loading.value = false;
   }
 };
@@ -74,11 +79,12 @@ const cancelBooking = async (bookingId) => {
 };
 
 export default function useBookings() {
-    return {
-        bookings,
-        loading,
-        fetchBookings,
-        handleRegistration,
-        cancelBooking
-    }
+  return {
+    bookings,
+    loading,
+    error,
+    fetchBookings,
+    handleRegistration,
+    cancelBooking,
+  };
 }

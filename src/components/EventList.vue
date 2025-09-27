@@ -17,7 +17,7 @@
             :when="event.date"
             :description="event.description"
             :key="event.id"
-            @register="$emit('register', event)"
+            @register="handleRegistration(event)"
           />
         </template>
         <template v-else>
@@ -37,8 +37,9 @@ import EventCard from './EventCard.vue';
 import LoadingEventCard from './LoadingEventCard.vue';
 import SectionCard from '@/components/SectionCard.vue';
 import RoundButton from '@/components/RoundButton.vue';
+import useBookings from '@/composables/useBookings';
 
-defineEmits(['register']);
+const {handleRegistration} = useBookings()
 
 const events = ref([]);
 const loading = ref(false);

@@ -31,10 +31,10 @@
   ],
   "bookings": [
     {
-      "id": "1758873491212",
+      "id": "1758952471577",
       "userId": 1,
-      "eventId": "2",
-      "eventTitle": "Vue Conference 2023",
+      "eventId": "4",
+      "eventTitle": "Rust Conference 2021",
       "status": "confirmed"
     }
   ]

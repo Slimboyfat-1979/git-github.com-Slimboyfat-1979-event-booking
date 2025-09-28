@@ -35,24 +35,7 @@ import LoadingEventCard from '@/components/LoadingEventCard.vue';
 import useBookings from '@/composables/useBookings';
 import ErrorCard from '@/components/ErrorCard.vue'
 
-const {handleRegistration} = useBookings()
-
-const events = ref([]);
-const loading = ref(false);
-const error = ref(null);
-
-const fetchEvents = async () => {
-  loading.value = true;
-  error.value = null;
-  try {
-    const response = await fetch('http://localhost:3001/events');
-    events.value = await response.json();
-  } catch (e) {
-    error.value = e;
-  } finally {
-    loading.value = false;
-  }
-};
+const {handleRegistration, fetchEvents, loading, error, events} = useBookings()
 
 onMounted(() => fetchEvents());
 </script>

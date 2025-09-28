@@ -5,17 +5,17 @@ const loading = ref(false);
 const error = ref(null);
 
 const fetchBookings = async () => {
-  loading.value = true;
-  error.value = true;
-  try {
-    const response = await fetch('http://localhost:3001/bookings');
-    bookings.value = await response.json();
-  }catch(err){
-    error.value = err;
-  }
-  finally {
-    loading.value = false;
-  }
+   loading.value = true;
+   error.value = null; 
+    try{
+        const response = await fetch('http://localhost:3001/bookings');
+        bookings.value = await response.json();
+        console.log(bookings.value)
+    }catch(err){
+        error.value = err;
+    }finally{
+        loading.value = false;
+    }
 };
 
 const findBookingbyId = (id) => {
